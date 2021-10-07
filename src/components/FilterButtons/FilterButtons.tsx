@@ -17,7 +17,8 @@ export const FilterButtons: React.FC<FilterButtonsPropsType> = ({filterButton, s
     return (
         <div>
             {
-                filterButton.map(f => <Button title={f.title}
+                filterButton.map(f => <Button key={f.id}
+                                              title={f.title}
                                               styleButton={filter === f.title ? 'active' : ''}
                                               callBack={() => filteredTasks(f.title)}/>)
             }

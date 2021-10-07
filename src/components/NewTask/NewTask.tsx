@@ -32,7 +32,8 @@ export const NewTask: React.FC<NewTaskPropsType> = ({addNewTask}) => {
                             placeholderValue={error && error}
                             value={inputValue}/>
             <Button title={'+'}
-                    callBack={callBackAddTask}/>
+                    callBack={callBackAddTask}
+                    disabledBtn={!!error}/>
         </div>
     )
 }
