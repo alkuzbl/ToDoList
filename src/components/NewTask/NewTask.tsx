@@ -35,3 +35,4 @@ export const NewTask = (props: NewTaskPropsType) => {
         </div>
     )
 }
+

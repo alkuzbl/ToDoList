@@ -74,7 +74,9 @@ function App() {
     const changeFilter = (value: FilterValuesType, toDoListId: string) => {
         setTodoLists(todoLists.map(m => m.id === toDoListId ? {...m, filter: value} : m))
     }
-
+    const changeTaskText = (taskId: string, toDoListId: string, newValue: string) => {
+        setTasks({...tasks, [toDoListId]: tasks[toDoListId].map(t => t.id === taskId ? {...t, title: newValue} : t)})
+    }
 
     return (
         <div className="App">
@@ -94,6 +96,7 @@ function App() {
                                       toDoListId={tdl.id}
                                       removeToDoList={removeToDoList}
                                       buttonsFilter={buttonsFilter}
+                                      changeTaskText={changeTaskText}
                             />
                         )
                     }

@@ -17,10 +17,11 @@ type TodolistPropsType = {
     toDoListId: string
     removeToDoList: (toDoListId: string) => void
     buttonsFilter: Array<ButtonsFilterType>
+    changeTaskText: (taskId: string, toDoListId: string, newValue: string)=> void
 }
 
 export function Todolist(props: TodolistPropsType) {
-    let {buttonsFilter} = props
+    let {buttonsFilter, changeTaskText} = props
     const onClickHandler = () => props.removeToDoList(props.toDoListId)
     const onFilterClickHandler = (btnTitle: FilterValuesType) => props.changeFilter(btnTitle, props.toDoListId)
     let tasksForTodolist = props.tasks;
@@ -30,6 +31,7 @@ export function Todolist(props: TodolistPropsType) {
     if (props.filter === "completed") {
         tasksForTodolist = props.tasks.filter(t => t.isDone);
     }
+
     return <div>
         <h3>{props.title}
             <SuperButton callBack={onClickHandler} name={'x'}/>
@@ -40,7 +42,8 @@ export function Todolist(props: TodolistPropsType) {
         <Tasks tasks={tasksForTodolist}
                removeTask={props.removeTask}
                changeTaskStatus={props.changeTaskStatus}
-               toDoListId={props.toDoListId}/>
+               toDoListId={props.toDoListId}
+               changeTaskText={changeTaskText}/>
 
         <ButtonsFilter buttonsFilter={buttonsFilter}
                        onFilterClickHandler={onFilterClickHandler}
