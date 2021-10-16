@@ -6,19 +6,21 @@
 .App > div {
   margin-right: 50px;
 }
-
-.error {
-  border: red 1px solid;
-}
-
-.error-message {
+.formAddingElements__span{
+ display: block;
   color: red;
 }
-
-.active-filter {
-  background-color: aquamarine;
+.tasks__list{
+  list-style: none;
+  padding: 0;
+}
+.error {
+  border: 1px solid red
 }
 
-.is-done {
+.active {
+  background-color: aqua;
+}
+.checked{
   opacity: 0.5;
 }
