@@ -6,7 +6,7 @@ import {SuperButton} from "../../defaultComponents/SuperButton";
 import {ChangingSpanInInput} from "../../defaultComponents/ChangingSpanInInput";
 
 type TasksPropsType = {
-    tasks: Array<TaskType>
+    tasks: TaskType[]
     toDoListId: string
     changeStatusTask: (checkStatus: boolean, toDoListId: string, taskId: string) => void
     removeTask: (toDoListId: string, taskId: string) => void
@@ -23,7 +23,7 @@ export const Tasks = ({tasks, changeStatusTask, toDoListId, removeTask, changeTa
 
     return <ul className={'tasks__list'}>
         {
-            tasks.map(t => <li>
+            tasks.map(t => <li key={t.id}>
                 <SuperInputCheckbox checkStatus={t.isDone}
                                     toDoListId={toDoListId}
                                     taskId={t.id}

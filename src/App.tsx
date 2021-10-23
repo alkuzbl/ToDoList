@@ -1,17 +1,33 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import './App.css';
 import {v1} from "uuid";
 import {ToDoList} from "./components/ToDoList/ToDoList";
 import {NewToDoList} from "./components/NewToDoList";
-
-
-const toDoListId_1: string = v1()
-
+import {
+    ADD_TASK,
+    ADD_TO_DO_LIST,
+    CHANGE_STATUS_TASK, CHANGE_TASK, CHANGE_TITLE_TO_DO_LIST,
+    FILTER_TASKS,
+    REMOVE_TASK,
+    REMOVE_TO_DO_LIST
+} from "./redux/const";
+import {
+    ActionsType,
+    addTaskAC,
+    addToDoListAC,
+    changeStatusTaskAC, changeTaskAC, changeToDoListTitleAC,
+    filterTasksAC,
+    removeTaskAC,
+    removeToDoListAC
+} from "./redux/reducer";
+//The initial ID of the toDoList and the task
+export const TO_DO_LIST_ID: string = v1()
+//Typification
 export type FilterButtonType = {
     id: string
     title: string
 }
-type ToDoListType = {
+export type ToDoListType = {
     id: string
     title: string
     filter: string
@@ -24,68 +40,130 @@ export type TaskType = {
 export type TasksType = {
     [key: string]: Array<TaskType>
 }
-export type TasksDataType = TasksType
-export type ToDoListsDataType = Array<ToDoListType>
-
-const toDoListsData: ToDoListsDataType = [
-    {id: toDoListId_1, title: 'What to buy', filter: 'All'},
-
-]
-const tasksData: TasksDataType = {
-    [toDoListId_1]: [
-        {id: v1(), title: "Milk", isDone: true},
-        {id: v1(), title: "Beer", isDone: true},
-        {id: v1(), title: "Bread", isDone: false},
-        {id: v1(), title: "Meat", isDone: false},
-        {id: v1(), title: "Potato", isDone: false},
+export type ToDoListsDataType = ToDoListType[]
+export type FilterButtonsDataType = FilterButtonType[]
+export type RootStateType = {
+    toDoListsData: ToDoListsDataType
+    tasksData: TasksType
+    filterButtonsData: FilterButtonsDataType
+}
+//Object DATA - initial state
+const initialState: RootStateType = {
+    toDoListsData: [
+        {id: TO_DO_LIST_ID, title: 'What to buy', filter: 'All'},],
+    tasksData: {
+        [TO_DO_LIST_ID]: [
+            {id: v1(), title: "Milk", isDone: true},
+            {id: v1(), title: "Beer", isDone: true},
+            {id: v1(), title: "Bread", isDone: false},
+            {id: v1(), title: "Meat", isDone: false},
+            {id: v1(), title: "Potato", isDone: false},
+        ]
+    },
+    filterButtonsData: [
+        {id: v1(), title: 'All'},
+        {id: v1(), title: 'Active'},
+        {id: v1(), title: 'Completed'}
     ]
 }
-const filterButtonsData: Array<FilterButtonType> = [
-    {id: v1(), title: 'All'},
-    {id: v1(), title: 'Active'},
-    {id: v1(), title: 'Completed'}
-]
-
-
 const App = () => {
-    const [toDoLists, setToDoLists] = useState<ToDoListsDataType>(toDoListsData)
-    const [tasks, setTasks] = useState<TasksDataType>(tasksData)
 
-    const removeToDoList = (toDoListId: string) => {
-        setToDoLists(toDoLists.filter(tdl => tdl.id !== toDoListId))
+    const reducer = (state: RootStateType = initialState, action: ActionsType): RootStateType => {
+        switch (action.type) {
+            case REMOVE_TO_DO_LIST:
+                return {...state, toDoListsData: state.toDoListsData.filter(tdl => tdl.id !== action.toDoListId)}
+            case ADD_TO_DO_LIST:
+                const newToDoList: ToDoListType = {
+                    id: action.newToDoListId,
+                    title: action.newToDoListTitle,
+                    filter: 'All'
+                }
+                return {
+                    ...state,
+                    toDoListsData: [...state.toDoListsData, newToDoList],
+                    tasksData: {...state.tasksData, [action.newToDoListId]: []}
+                }
+            case FILTER_TASKS:
+                console.log('fff')
+                return {
+                    ...state, toDoListsData:
+                        state.toDoListsData.map(tdl => tdl.id === action.toDoListId ?
+                            {...tdl, filter: action.filterValue} : tdl)
+                }
+            case REMOVE_TASK:
+                return {
+                    ...state,
+                    tasksData: {
+                        ...state.tasksData,
+                        [action.toDoListId]: state.tasksData[action.toDoListId].filter(t => t.id !== action.taskId)
+                    }
+                }
+            case ADD_TASK:
+                const newAddedTask: TaskType = {id: v1(), title: action.newTask, isDone: false}
+                return {
+                    ...state,
+                    tasksData: {
+                        ...state.tasksData,
+                        [action.toDoListId]: [newAddedTask, ...state.tasksData[action.toDoListId]]
+                    }
+                }
+            case CHANGE_STATUS_TASK:
+                return {
+                    ...state, tasksData:
+                        {
+                            ...state.tasksData, [action.toDoListId]:
+                                state.tasksData[action.toDoListId].map(tdl => tdl.id === action.taskId ?
+                                    {...tdl, isDone: action.checkStatus} : tdl)
+                        }
+                }
+            case CHANGE_TASK:
+                return {
+                    ...tasks, tasksData:
+                        {
+                            ...tasks.tasksData, [action.toDoListId]:
+                                state.tasksData[action.toDoListId].map(tdl => tdl.id === action.taskId ? {
+                                    ...tdl,
+                                    title: action.newTask
+                                } : tdl)
+                        }
+                }
+            case CHANGE_TITLE_TO_DO_LIST:
+                return {
+                    ...state, toDoListsData:
+                        state.toDoListsData.map(tdl => tdl.id === action.toDoListId ?
+                            {...tdl, title: action.newTask} : tdl)
+                }
+            default:
+                return state
+        }
     }
+
+    let [tasks, dispatch] = useReducer(reducer, initialState)
+
     const addToDoList = (newToDoListId: string, newToDoListTitle: string) => {
-        const newToDoList: ToDoListType = {id: newToDoListId, title: newToDoListTitle, filter: 'All'}
-        setToDoLists([...toDoLists, newToDoList])
-        setTasks({...tasks, [newToDoListId]: []})
+        dispatch(addToDoListAC(newToDoListId, newToDoListTitle))
+    }
+    const removeToDoList = (toDoListId: string) => {
+        dispatch(removeToDoListAC(toDoListId))
     }
     const filterTasks = (toDoListId: string, filterValue: string) => {
-        setToDoLists(toDoLists.map(tdl => tdl.id === toDoListId ? {...tdl, filter: filterValue} : tdl))
+        dispatch(filterTasksAC(toDoListId, filterValue))
     }
     const removeTask = (toDoListId: string, taskId: string) => {
-        setTasks({...tasks, [toDoListId]: tasks[toDoListId].filter(t => t.id !== taskId)})
+        dispatch(removeTaskAC(toDoListId, taskId))
     }
     const addTask = (toDoListId: string, newTask: string) => {
-        const newAddedTask: TaskType = {id: v1(), title: newTask, isDone: false}
-        setTasks({...tasks, [toDoListId]: [newAddedTask, ...tasks[toDoListId]]})
+        dispatch(addTaskAC(toDoListId, newTask))
     }
     const changeStatusTask = (checkStatus: boolean, toDoListId: string, taskId: string) => {
-        setTasks({
-                ...tasks,
-                [toDoListId]:
-                    tasks[toDoListId].map(tdl => tdl.id === taskId ? {...tdl, isDone: checkStatus} : tdl)
-            }
-        )
+        dispatch(changeStatusTaskAC(checkStatus, toDoListId, taskId))
     }
     const changeTask = (newTask: string, toDoListId: string, taskId: string) => {
-        setTasks({
-                ...tasks,
-                [toDoListId]:
-                    tasks[toDoListId].map(tdl => tdl.id === taskId ? {...tdl, title: newTask} : tdl)
-            }
-        )
+        dispatch(changeTaskAC(newTask, toDoListId, taskId))
     }
-
+    const changeToDoListTitle = (newTask: string, toDoListId: string) => {
+        dispatch(changeToDoListTitleAC(newTask, toDoListId))
+    }
 
     return (
         <div className="App">
@@ -93,20 +171,20 @@ const App = () => {
                          newToDoListId={v1()}
             />
             {
-                toDoLists.map(t => {
-
-                        return <ToDoList
-                            addTask={addTask}
-                            toDoListId={t.id}
-                            filterName={t.filter}
-                            toDoListTitle={t.title}
-                            removeToDoList={removeToDoList}
-                            removeTask={removeTask}
-                            changeStatusTask={changeStatusTask}
-                            tasks={tasks[t.id]}
-                            filterButtons={filterButtonsData}
-                            filterTasks={filterTasks}
-                            changeTask={changeTask}
+                tasks.toDoListsData.map(t => {
+                        return <ToDoList key={t.id}
+                                         addTask={addTask}
+                                         toDoListId={t.id}
+                                         filterName={t.filter}
+                                         toDoListTitle={t.title}
+                                         removeToDoList={removeToDoList}
+                                         removeTask={removeTask}
+                                         changeStatusTask={changeStatusTask}
+                                         tasks={tasks.tasksData[t.id]}
+                                         filterButtons={tasks.filterButtonsData}
+                                         filterTasks={filterTasks}
+                                         changeTask={changeTask}
+                                         changeToDoListTitle={changeToDoListTitle}
                         />
                     }
                 )

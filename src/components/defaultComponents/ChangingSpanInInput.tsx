@@ -1,11 +1,9 @@
 import React, {ChangeEvent, useState} from "react";
-
-
-type ChangingSpanInInputPropsType = {
+export type ChangingSpanInInputPropsType = {
     title: string
     taskId: string
     callBack: (newValue: string, taskId: string) => void
-    styleSpan: string
+    styleSpan?: string
 }
 export const ChangingSpanInInput = ({title, callBack, taskId, styleSpan}: ChangingSpanInInputPropsType) => {
     const [replacement, setReplacement] = useState<Boolean>(false)
@@ -15,9 +13,13 @@ export const ChangingSpanInInput = ({title, callBack, taskId, styleSpan}: Changi
         setValue(e.currentTarget.value)
     }
     const onBlrHandler = () => {
-        if (value.trim() === '') return
-        setReplacement(false)
-        callBack(value, taskId)
+        if (value.trim() !== '') {
+            setReplacement(false)
+            callBack(value, taskId)
+        } else {
+            return setReplacement(false)
+        }
+
     }
     const onDblClickHandler = () => {
         setReplacement(true)

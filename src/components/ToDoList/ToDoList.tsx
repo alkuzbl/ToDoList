@@ -4,6 +4,8 @@ import {Tasks} from "./Tasks/Tasks";
 import {FilterButtons} from "./FilterButtons/FilterButtons";
 import {FilterButtonType, TaskType} from "../../App";
 import {SuperButton} from "../defaultComponents/SuperButton";
+import {ChangingSpanInInput} from "../defaultComponents/ChangingSpanInInput";
+
 
 type ToDoListPropsType = {
     addTask: (toDoListId: string, newTask: string) => void
@@ -17,6 +19,7 @@ type ToDoListPropsType = {
     filterButtons: Array<FilterButtonType>
     filterTasks: (toDoListId: string, filterValue: string) => void
     changeTask: (newTask: string, toDoListId: string, taskId: string) => void
+    changeToDoListTitle: (newTask: string, toDoListId: string) => void
 }
 
 export const ToDoList = ({
@@ -34,13 +37,16 @@ export const ToDoList = ({
     const filterTasksCallBack = (filterValue: string) => {
         filterTasks(toDoListId, filterValue)
     }
-
     const removeToDoListCallBack = () => {
         restProps.removeToDoList(toDoListId)
     }
 
     return <div>
-        <h3>{toDoListTitle}
+        <h3>
+            <ChangingSpanInInput title={toDoListTitle}
+                                 taskId={toDoListId}
+                                 callBack={restProps.changeToDoListTitle}
+                                 styleSpan={''}/>
             <SuperButton name={'Delete'}
                          callBackClick={removeToDoListCallBack}/>
         </h3>

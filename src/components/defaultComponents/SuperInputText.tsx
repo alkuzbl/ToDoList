@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from "react";
 
-type SuperInputPropsType = {
+export type SuperInputPropsType = {
     callBackOnChange: (newValue: string)=> void
     callBackOnKey: (keyValue: string) => void
     newValue: string

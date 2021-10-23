@@ -1,9 +1,9 @@
 import React from "react";
-import {FilterButtonType} from "../../../App";
+import {FilterButtonsDataType} from "../../../App";
 import {SuperButton} from "../../defaultComponents/SuperButton";
 
 type FilterButtonsPropsType = {
-    filterButtons: Array<FilterButtonType>
+    filterButtons: FilterButtonsDataType
     filterTasksCallBack: (filterValue: string) => void
     filterName: string
 }
@@ -15,8 +15,10 @@ export const FilterButtons = ({filterButtons, filterTasksCallBack, filterName}: 
     }
 
     return <div>
-        {filterButtons.map(f => <SuperButton name={f.title}
-                                             styleButton={filterName === f.title ? 'active' : ''}
-                                             callBackClick={() => filteredTasks(f.title)}/>)}
+        {filterButtons.map(f => <SuperButton
+            key={f.id}
+            name={f.title}
+            styleButton={filterName === f.title ? 'active' : ''}
+            callBackClick={() => filteredTasks(f.title)}/>)}
     </div>
 }
