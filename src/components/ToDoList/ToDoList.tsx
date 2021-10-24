@@ -48,11 +48,12 @@ export const ToDoList = ({
                                  callBack={restProps.changeToDoListTitle}
                                  styleSpan={''}/>
             <SuperButton name={'Delete'}
+                         iconButtonDeleteMUI={true}
                          callBackClick={removeToDoListCallBack}/>
         </h3>
         <NewTask addTask={addTask}
                  toDoListId={toDoListId}/>
-        <Tasks tasks={filteredTasks}
+        <Tasks  tasks={filteredTasks}
                changeStatusTask={restProps.changeStatusTask}
                toDoListId={toDoListId}
                changeTask={restProps.changeTask}

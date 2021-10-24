@@ -1,4 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
+import {Input, TextField} from "@mui/material";
+
 export type ChangingSpanInInputPropsType = {
     title: string
     taskId: string
@@ -29,14 +31,25 @@ export const ChangingSpanInInput = ({title, callBack, taskId, styleSpan}: Changi
         if (e.key === 'Enter') onBlrHandler()
     }
     return replacement ?
-        <input type="text"
-               value={value}
-               onBlur={onBlrHandler}
-               onChange={onChangeHandler}
-               onKeyPress={onKeyPressHandler}
-               autoFocus
-               />
+        <TextField id="standard-basic"
+                   label="Введите сообщение"
+                   value={value}
+                   onBlur={onBlrHandler}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+                   autoFocus
+                   variant="standard"/>
+
         : <span
             className={styleSpan}
             onDoubleClick={onDblClickHandler}>{title}</span>
+
 }
+
+// <input type="text"
+//        value={value}
+//        onBlur={onBlrHandler}
+//        onChange={onChangeHandler}
+//        onKeyPress={onKeyPressHandler}
+//        autoFocus
+// />

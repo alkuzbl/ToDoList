@@ -6,10 +6,11 @@ import {SuperButton} from "./SuperButton";
 type FormAddingElementsPropsType = {
     addElements: (toDoListId: string, newToDoListTitle: string)=>void
     toDoListId: string
+    labelValue?: string
 }
 
 
-export const FormAddingElements = ({addElements, toDoListId}:FormAddingElementsPropsType) => {
+export const FormAddingElements = ({addElements, toDoListId, labelValue}:FormAddingElementsPropsType) => {
     const [error, setError] = useState<string>('')
     const [value, setValue] = useState<string>('')
     const onChangeValue = (newValue: string) => {
@@ -30,8 +31,11 @@ export const FormAddingElements = ({addElements, toDoListId}:FormAddingElementsP
         <SuperInputText callBackOnChange={onChangeValue}
                         newValue={value}
                         styleInput={styleInput}
+                        labelValue={labelValue}
+                        error={error}
                         callBackOnKey={onKeyAddElements}/>
         <SuperButton name={'+'}
+                     iconButtonDeleteMUI={false}
                      callBackClick={callBackAddElements}
                      disabledButton={!!error}/>
         <span  className={'formAddingElements__span'}>{error}</span>

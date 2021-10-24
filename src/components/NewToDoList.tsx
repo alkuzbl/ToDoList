@@ -8,8 +8,8 @@ type NewToDoListPropsType = {
 export const NewToDoList = ({addToDoList, newToDoListId}: NewToDoListPropsType) => {
 
     return <div>
-        <span>Add a new task list</span>
         <FormAddingElements addElements={addToDoList}
+                            labelValue={'Enter the name of the to-di list'}
                             toDoListId={newToDoListId}/>
     </div>
 }

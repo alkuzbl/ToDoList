@@ -20,6 +20,8 @@ import {
     removeTaskAC,
     removeToDoListAC
 } from "./redux/reducer";
+import MenuAppBar from "./components/HeaderMui";
+import {Container, Grid, Paper} from '@mui/material';
 //The initial ID of the toDoList and the task
 export const TO_DO_LIST_ID: string = v1()
 //Typification
@@ -69,7 +71,11 @@ const initialState: RootStateType = {
 export const reducer = (state: RootStateType = initialState, action: ActionsType): RootStateType => {
     switch (action.type) {
         case REMOVE_TO_DO_LIST:
-            return {...state, toDoListsData: state.toDoListsData.filter(tdl => tdl.id !== action.toDoListId), tasksData: {...state.tasksData, [action.toDoListId]:[]}}
+            return {
+                ...state,
+                toDoListsData: state.toDoListsData.filter(tdl => tdl.id !== action.toDoListId),
+                tasksData: {...state.tasksData, [action.toDoListId]: []}
+            }
         case ADD_TO_DO_LIST:
             const newToDoList: ToDoListType = {
                 id: action.newToDoListId,
@@ -165,28 +171,41 @@ const App = () => {
 
     return (
         <div className="App">
-            <NewToDoList addToDoList={addToDoList}
-                         newToDoListId={v1()}
-            />
-            {
-                tasks.toDoListsData.map(t => {
-                        return <ToDoList key={t.id}
-                                         addTask={addTask}
-                                         toDoListId={t.id}
-                                         filterName={t.filter}
-                                         toDoListTitle={t.title}
-                                         removeToDoList={removeToDoList}
-                                         removeTask={removeTask}
-                                         changeStatusTask={changeStatusTask}
-                                         tasks={tasks.tasksData[t.id]}
-                                         filterButtons={tasks.filterButtonsData}
-                                         filterTasks={filterTasks}
-                                         changeTask={changeTask}
-                                         changeToDoListTitle={changeToDoListTitle}
-                        />
+            <MenuAppBar/>
+            <Container fixed>
+                <Grid container>
+                    <Paper style={{margin: "10px 0 30px" }}>
+                    <NewToDoList addToDoList={addToDoList}
+                                 newToDoListId={v1()}
+                    />
+                    </Paper>
+                </Grid>
+                <Grid container spacing={3}>
+                    {
+                        tasks.toDoListsData.map(t => {
+                                return <Grid item>
+                                    <Paper style={{padding: "10px"}}>
+                                        <ToDoList key={t.id}
+                                                  addTask={addTask}
+                                                  toDoListId={t.id}
+                                                  filterName={t.filter}
+                                                  toDoListTitle={t.title}
+                                                  removeToDoList={removeToDoList}
+                                                  removeTask={removeTask}
+                                                  changeStatusTask={changeStatusTask}
+                                                  tasks={tasks.tasksData[t.id]}
+                                                  filterButtons={tasks.filterButtonsData}
+                                                  filterTasks={filterTasks}
+                                                  changeTask={changeTask}
+                                                  changeToDoListTitle={changeToDoListTitle}
+                                        />
+                                    </Paper>
+                                </Grid>
+                            }
+                        )
                     }
-                )
-            }
+                </Grid>
+            </Container>
         </div>
     );
 }

@@ -34,6 +34,7 @@ export const Tasks = ({tasks, changeStatusTask, toDoListId, removeTask, changeTa
                                      styleSpan={t.isDone ? 'checked' : ''}
                                      callBack={changeTaskCallBack}/>
                 <SuperButton name={'x'}
+                             iconButtonDeleteMUI={true}
                              callBackClick={() => removeTaskCallBack(t.id)}/></li>)
         }
     </ul>

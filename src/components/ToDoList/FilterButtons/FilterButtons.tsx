@@ -18,7 +18,9 @@ export const FilterButtons = ({filterButtons, filterTasksCallBack, filterName}: 
         {filterButtons.map(f => <SuperButton
             key={f.id}
             name={f.title}
-            styleButton={filterName === f.title ? 'active' : ''}
+            iconButtonDeleteMUI={false}
+            styleButton={filterName === f.title}
             callBackClick={() => filteredTasks(f.title)}/>)}
     </div>
 }
+//styleButton={filterName === f.title ? 'inherit' : 'info'}

@@ -26,7 +26,7 @@ test('After deleting the toDoList, the toDoListData and tasksData should be empt
     expect(testState.toDoListsData.length).toBe(0)
     expect(testState.tasksData['111'].length).toBe(0)
 })
-test('After adding the toDoList, the toDoListData should be equal 2 and the taskData[222] = Array', ()=>{
+test('After adding the toDoList, the toDoListData should be equal 2 and the taskData[222] = []', ()=>{
 
     let testState = reducer(state, { type: 'ADD_TO_DO_LIST', newToDoListId: '222', newToDoListTitle: 'Test' })
     expect(state.toDoListsData.length).toBe(1)

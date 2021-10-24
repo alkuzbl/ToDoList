@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from "react";
+import {Checkbox} from "@mui/material";
 
 type SuperInputCheckboxPropsType = {
     checkStatus: boolean
@@ -16,5 +17,7 @@ export const SuperInputCheckbox = ({
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         callBackChangeStatus(e.currentTarget.checked, toDoListId, taskId)
     }
-    return <input type="checkbox" checked={checkStatus} onChange={onChangeHandler}/>
+    return <Checkbox  defaultChecked checked={checkStatus} onChange={onChangeHandler} size={'small'}/>
+
 }
+//<input type="checkbox" checked={checkStatus} onChange={onChangeHandler}/>

@@ -1,26 +1,26 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
-.formAddingElements__span{
- display: block;
-  color: red;
-}
-.tasks__list{
-  list-style: none;
-  padding: 0;
-}
-.error {
-  border: 1px solid red
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
+/*.formAddingElements__span{*/
+/* display: block;*/
+/*  color: red;*/
+/*}*/
+/*.tasks__list{*/
+/*  list-style: none;*/
+/*  padding: 0;*/
+/*}*/
+/*.error {*/
+/*  border: 1px solid red*/
+/*}*/
 
-.active {
-  background-color: aqua;
-}
+/*.active {*/
+/*  background-color: aqua;*/
+/*}*/
 .checked{
   opacity: 0.5;
 }

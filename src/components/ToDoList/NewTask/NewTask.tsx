@@ -9,5 +9,5 @@ type NewTaskProps = {
 }
 
 export const NewTask = ({addTask, toDoListId}: NewTaskProps) => {
-    return <FormAddingElements addElements={addTask} toDoListId={toDoListId}/>
+    return <FormAddingElements addElements={addTask} toDoListId={toDoListId} labelValue={'Enter the task'}/>
 }
