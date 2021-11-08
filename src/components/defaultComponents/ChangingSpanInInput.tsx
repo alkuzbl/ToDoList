@@ -46,10 +46,3 @@ export const ChangingSpanInInput = ({title, callBack, taskId, styleSpan}: Changi
 
 }
 
-// <input type="text"
-//        value={value}
-//        onBlur={onBlrHandler}
-//        onChange={onChangeHandler}
-//        onKeyPress={onKeyPressHandler}
-//        autoFocus
-// />

@@ -14,13 +14,13 @@ type SuperButtonType = DefaultButtonType & {
     iconButtonDeleteMUI: boolean
 
 }
-export const SuperButton = ({
-                                callBackClick,
-                                name,
-                                iconButtonDeleteMUI,
-                                styleButton,
-                                disabledButton
-                            }: SuperButtonType) => {
+export const SuperButton = React.memo(({
+                                           callBackClick,
+                                           name,
+                                           iconButtonDeleteMUI,
+                                           styleButton,
+                                           disabledButton
+                                       }: SuperButtonType) => {
     const onClickHandler = () => {
         callBackClick()
     }
@@ -42,4 +42,4 @@ export const SuperButton = ({
         }
     </>
 
-}
+})

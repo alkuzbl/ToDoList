@@ -7,16 +7,16 @@ type SuperInputCheckboxPropsType = {
     taskId: string
     callBackChangeStatus: (checkStatus: boolean, toDoListId: string, taskId: string) => void
 }
-export const SuperInputCheckbox = ({
-                                       checkStatus,
-                                       callBackChangeStatus,
-                                       toDoListId,
-                                       taskId
-                                   }: SuperInputCheckboxPropsType) => {
+export const SuperInputCheckbox = React.memo(({
+                                                  checkStatus,
+                                                  callBackChangeStatus,
+                                                  toDoListId,
+                                                  taskId
+                                              }: SuperInputCheckboxPropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         callBackChangeStatus(e.currentTarget.checked, toDoListId, taskId)
     }
     return <Checkbox checked={checkStatus} onChange={onChangeHandler} size={'small'}/>
 
-}
+})

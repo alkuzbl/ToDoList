@@ -1,14 +1,14 @@
 import React from "react";
-import {FilterButtonsDataType} from "../../../App";
+
 import {SuperButton} from "../../defaultComponents/SuperButton";
 
 type FilterButtonsPropsType = {
-    filterButtons: FilterButtonsDataType
+    filterButtons: {id: string, title: string}[]
     filterTasksCallBack: (filterValue: string) => void
     filterName: string
 }
 
-export const FilterButtons = ({filterButtons, filterTasksCallBack, filterName}: FilterButtonsPropsType) => {
+export const FilterButtons = React.memo(({filterButtons, filterTasksCallBack, filterName}: FilterButtonsPropsType) => {
 
     const filteredTasks = (filteredValue: string) => {
         filterTasksCallBack(filteredValue)
@@ -22,5 +22,4 @@ export const FilterButtons = ({filterButtons, filterTasksCallBack, filterName}: 
             styleButton={filterName === f.title}
             callBackClick={() => filteredTasks(f.title)}/>)}
     </div>
-}
-//styleButton={filterName === f.title ? 'inherit' : 'info'}
+})

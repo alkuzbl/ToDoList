@@ -12,19 +12,22 @@ type FormAddingElementsPropsType = {
 
 export const FormAddingElements = ({addElements, toDoListId, labelValue}:FormAddingElementsPropsType) => {
     const [error, setError] = useState<string>('')
+
     const [value, setValue] = useState<string>('')
+
     const onChangeValue = (newValue: string) => {
         setError('')
         setValue(newValue)
     }
+
     const callBackAddElements = () => {
         if (value.trim() === '') return setError('Title is required')
         addElements(toDoListId, value.trim())
         setValue('')
     }
-    const onKeyAddElements = (keyValue: string)=>{
-        if (keyValue === 'Enter') callBackAddElements()
-    }
+
+    const onKeyAddElements = (keyValue: string)=>{if (keyValue === 'Enter') callBackAddElements()}
+
     const styleInput = error ? 'error' : ''
 
     return <div>
@@ -38,6 +41,6 @@ export const FormAddingElements = ({addElements, toDoListId, labelValue}:FormAdd
                      iconButtonDeleteMUI={false}
                      callBackClick={callBackAddElements}
                      disabledButton={!!error}/>
-        <span  className={'formAddingElements__span'}>{error}</span>
+        <span>{error}</span>
     </div>
 }

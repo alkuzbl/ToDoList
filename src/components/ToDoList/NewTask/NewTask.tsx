@@ -8,6 +8,6 @@ type NewTaskProps = {
     toDoListId: string
 }
 
-export const NewTask = ({addTask, toDoListId}: NewTaskProps) => {
+export const NewTask = React.memo(({addTask, toDoListId}: NewTaskProps) => {
     return <FormAddingElements addElements={addTask} toDoListId={toDoListId} labelValue={'Enter the task'}/>
-}
+})
