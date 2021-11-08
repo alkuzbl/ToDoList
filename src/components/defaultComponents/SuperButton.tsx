@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 type DefaultButtonType = {}
-type SuperButton = DefaultButtonType & {
+type SuperButtonType = DefaultButtonType & {
     name: string
     callBackClick: () => void
     styleButton?: boolean
@@ -14,13 +14,13 @@ type SuperButton = DefaultButtonType & {
     iconButtonDeleteMUI: boolean
 
 }
-export const SuperButton: React.FC<SuperButton> = ({
-                                                       callBackClick,
-                                                       name,
-                                                       iconButtonDeleteMUI,
-                                                       styleButton,
-                                                       disabledButton
-                                                   }) => {
+export const SuperButton = ({
+                                callBackClick,
+                                name,
+                                iconButtonDeleteMUI,
+                                styleButton,
+                                disabledButton
+                            }: SuperButtonType) => {
     const onClickHandler = () => {
         callBackClick()
     }
@@ -28,13 +28,12 @@ export const SuperButton: React.FC<SuperButton> = ({
     return <>
         {
             iconButtonDeleteMUI ? <IconButton aria-label="delete"
-                                     disabled={disabledButton}
-                                     onClick={onClickHandler}
-                                     size={'small'}>
+                                              disabled={disabledButton}
+                                              onClick={onClickHandler}
+                                              size={'small'}>
                 <DeleteIcon fontSize="inherit"/>
             </IconButton> : <Button
                 variant={"contained"}
-
                 color={styleButton ? 'secondary' : 'info'}
                 disabled={disabledButton}
                 onClick={onClickHandler}>
@@ -42,5 +41,5 @@ export const SuperButton: React.FC<SuperButton> = ({
             </Button>
         }
     </>
-    // return <Button variant="text">Text</Button>
+
 }

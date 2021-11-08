@@ -1,12 +1,12 @@
 import React from "react";
-import {TaskType} from "../../../App";
+
 import {SuperInputCheckbox} from "../../defaultComponents/SuperInputCheckbox";
 import {SuperButton} from "../../defaultComponents/SuperButton";
 
 import {ChangingSpanInInput} from "../../defaultComponents/ChangingSpanInInput";
 
 type TasksPropsType = {
-    tasks: TaskType[]
+    tasks: Array<{ id: string, title: string, isDone: boolean }>
     toDoListId: string
     changeStatusTask: (checkStatus: boolean, toDoListId: string, taskId: string) => void
     removeTask: (toDoListId: string, taskId: string) => void

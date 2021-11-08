@@ -2,7 +2,6 @@ import React from "react";
 import {NewTask} from "./NewTask/NewTask";
 import {Tasks} from "./Tasks/Tasks";
 import {FilterButtons} from "./FilterButtons/FilterButtons";
-import {FilterButtonType, TaskType} from "../../App";
 import {SuperButton} from "../defaultComponents/SuperButton";
 import {ChangingSpanInInput} from "../defaultComponents/ChangingSpanInInput";
 
@@ -15,8 +14,8 @@ type ToDoListPropsType = {
     removeToDoList: (toDoListId: string) => void
     removeTask: (toDoListId: string, taskId: string) => void
     changeStatusTask: (checkStatus: boolean, toDoListId: string, taskId: string) => void
-    tasks: Array<TaskType>
-    filterButtons: Array<FilterButtonType>
+    tasks: Array<{ id: string, title: string, isDone: boolean }>
+    filterButtons: Array<{id: string, title: string}>
     filterTasks: (toDoListId: string, filterValue: string) => void
     changeTask: (newTask: string, toDoListId: string, taskId: string) => void
     changeToDoListTitle: (newTask: string, toDoListId: string) => void

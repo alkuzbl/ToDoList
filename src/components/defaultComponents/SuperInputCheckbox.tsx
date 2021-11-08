@@ -17,7 +17,6 @@ export const SuperInputCheckbox = ({
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         callBackChangeStatus(e.currentTarget.checked, toDoListId, taskId)
     }
-    return <Checkbox  defaultChecked checked={checkStatus} onChange={onChangeHandler} size={'small'}/>
+    return <Checkbox checked={checkStatus} onChange={onChangeHandler} size={'small'}/>
 
 }
-//<input type="checkbox" checked={checkStatus} onChange={onChangeHandler}/>
