@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 type DefaultButtonType = {}
-type SuperButtonType = DefaultButtonType & {
+export type SuperButtonType = DefaultButtonType & {
     name: string
     callBackClick: () => void
     styleButton?: boolean

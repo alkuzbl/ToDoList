@@ -3,7 +3,7 @@ import React from "react";
 import {FormAddingElements} from "../../defaultComponents/FormAddingElements";
 
 
-type NewTaskProps = {
+export type NewTaskProps = {
     addTask: (toDoListId: string, newTask: string) => void
     toDoListId: string
 }

@@ -13,7 +13,7 @@ export const NewToDoList = React.memo(() => {
     }
     return <div>
         <FormAddingElements addElements={addToDoList}
-                            labelValue={'Enter the name of the to-di list'}
+                            labelValue='Enter the name of the to-di list'
                             toDoListId={v1()}
         />
     </div>

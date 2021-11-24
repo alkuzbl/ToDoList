@@ -1,9 +1,5 @@
 import React from "react";
-
-import {SuperInputCheckbox} from "../../defaultComponents/SuperInputCheckbox";
-import {SuperButton} from "../../defaultComponents/SuperButton";
-
-import {ChangingSpanInInput} from "../../defaultComponents/ChangingSpanInInput";
+import {Task} from "./Task/Task";
 
 type TasksPropsType = {
     tasks: Array<{ id: string, title: string, isDone: boolean }>
@@ -13,7 +9,10 @@ type TasksPropsType = {
     changeTask: (newTask: string, toDoListId: string, taskId: string) => void
 }
 
-export const Tasks = ({tasks, changeStatusTask, toDoListId, removeTask, changeTask}: TasksPropsType) => {
+export const Tasks = React.memo((props: TasksPropsType) => {
+
+    const {tasks, changeStatusTask, toDoListId, removeTask, changeTask} = props
+
     const removeTaskCallBack = (taskId: string) => {
         removeTask(toDoListId, taskId)
     }
@@ -23,21 +22,16 @@ export const Tasks = ({tasks, changeStatusTask, toDoListId, removeTask, changeTa
 
     return <ul className={'tasks__list'}>
         {
-            tasks.map(t => <li key={t.id}>
-                <SuperInputCheckbox checkStatus={t.isDone}
-                                    toDoListId={toDoListId}
-                                    taskId={t.id}
-                                    callBackChangeStatus={changeStatusTask}
-                />
-                <ChangingSpanInInput title={t.title}
-                                     taskId={t.id}
-                                     styleSpan={t.isDone ? 'checked' : ''}
-                                     callBack={changeTaskCallBack}/>
-                <SuperButton name={'x'}
-                             iconButtonDeleteMUI={true}
-                             callBackClick={() => removeTaskCallBack(t.id)}/></li>)
+            tasks.map(t => <Task checkStatus={t.isDone}
+                                 toDoListId={toDoListId}
+                                 taskId={t.id}
+                                 callBackChangeStatus={changeStatusTask}
+                                 title={t.title}
+                                 callBack={changeTaskCallBack}
+                                 callBackClick={() => removeTaskCallBack(t.id)}/>
+            )
         }
     </ul>
-}
+})
 
 

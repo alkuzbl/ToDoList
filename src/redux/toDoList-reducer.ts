@@ -1,5 +1,7 @@
 import {v1} from "uuid";
 import {ADD_TO_DO_LIST, CHANGE_TITLE_TO_DO_LIST, FILTER_TASKS, REMOVE_TO_DO_LIST} from "./const";
+import {Dispatch} from "redux";
+import {authAPI} from "../dal/api";
 
 export const TO_DO_LIST_ID: string = v1()
 
@@ -55,3 +57,8 @@ export const changeToDoListTitleAC = (newTask: string, toDoListId: string) => ({
     newTask,
     toDoListId
 } as const)
+
+export const getToDoList = () => (dispatch: Dispatch) => {
+    authAPI.getAuthMe()
+        .then(data => data)
+}
