@@ -4,13 +4,20 @@ import {Dispatch} from "redux";
 import {authAPI} from "../dal/api";
 
 export const TO_DO_LIST_ID: string = v1()
+// type initialState = {
+//     id: string
+//     title: string
+//     filter: string
+// }
 
-export type InitialStateToDoListType = typeof initialState
+type InitialStateType = typeof initialState
+// export type InitialStateToDoListType = [] | initialState[]
+
 const initialState = [
     {id: TO_DO_LIST_ID, title: 'What to buy', filter: 'All'}
 ]
 
-export const toDoListReducer = (state: InitialStateToDoListType = initialState, action: ActionType) => {
+export const toDoListReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case REMOVE_TO_DO_LIST:
             return state.filter(s => s.id !== action.toDoListId)

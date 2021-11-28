@@ -10,7 +10,7 @@ import {changeToDoListTitleAC, filterTasksAC, removeToDoListAC} from "../../redu
 import {AppStateType} from "../../redux/store";
 
 
-type ToDoListPropsType = {
+export type ToDoListPropsType = {
     toDoListId: string
     filterName: string
     toDoListTitle: string

@@ -2,8 +2,28 @@ import {v1} from "uuid";
 import {ADD_TASK, ADD_TO_DO_LIST, CHANGE_STATUS_TASK, CHANGE_TASK, REMOVE_TASK, REMOVE_TO_DO_LIST} from "./const";
 import {AddToDoListACType, RemoveToDoListACType, TO_DO_LIST_ID} from "./toDoList-reducer";
 
+// type TaskType = {
+//     id: string
+//     title: string
+//     isDone: boolean
+// }
+// type TasksType = TaskType[] | []
+// type ButtonType = {
+//     id: string
+//     title: string
+// }
+// type FilterButtonsType = ButtonType[]
+// type TasksDataType = {
+//     [key: string]: TasksType
+// }
+//
+//
+// export type InitialStateType = {
+//     tasksData: TasksDataType
+//     filterButtonsData: FilterButtonsType
+// }
 
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
 const initialState = {
     tasksData: {
         [TO_DO_LIST_ID]: [
@@ -70,7 +90,13 @@ export const tasksReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 
-type ActionType = RemoveTaskACType | AddTaskACType | ChangeStatusTaskACType | ChangeTaskACType | AddToDoListACType | RemoveToDoListACType
+type ActionType =
+    RemoveTaskACType
+    | AddTaskACType
+    | ChangeStatusTaskACType
+    | ChangeTaskACType
+    | AddToDoListACType
+    | RemoveToDoListACType
 
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>

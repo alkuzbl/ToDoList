@@ -10,7 +10,6 @@ export default {
     title: 'Example/Task',
     component: Task,
     argTypes: {
-        checkStatus: {action: true},
         callBackChangeStatus: {
             action: () => {
             }
@@ -28,7 +27,12 @@ export default {
 } as ComponentMeta<TaskPropsType>;
 
 
-const Template: ComponentStory<TaskPropsType> = (args: JSX.IntrinsicAttributes & TaskPropsType) => <Task {...args} />;
+const Template: ComponentStory<TaskPropsType> = (args: JSX.IntrinsicAttributes & TaskPropsType) => {
+    return <>
+        <Task {...args}  />
+        <Task {...args} checkStatus={true} />
+    </>
+};
 
 export const Primary = Template.bind({});
 
@@ -36,6 +40,5 @@ Primary.args = {
     toDoListId: '1',
     taskId: '1',
     title: 'Test label',
-    checkStatus: false
 };
 
